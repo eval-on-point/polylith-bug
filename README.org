@@ -5,7 +5,8 @@ See [[https://github.com/polyfy/polylith/issues/504][Requiring multiple non-inte
 To reproduce this bug, run:
 
 #+begin_src shell
-clj -M:poly
+  nix develop --impure
+  clj -M:poly
 #+end_src
 
 which should produce the following stacktrace:
