@@ -1,0 +1,67 @@
+To reproduce this bug, run:
+
+#+begin_src shell
+clj -M:poly
+#+end_src
+
+which should produce the following stacktrace:
+
+#+begin_example
+#error {
+ :cause class clojure.lang.PersistentArrayMap cannot be cast to class java.lang.Comparable (clojure.lang.PersistentArrayMap is in unnamed module of loader 'app'; java.lang.Comparable is in module java.base of loader 'bootstrap')
+ :via
+ [{:type java.lang.ClassCastException
+   :message class clojure.lang.PersistentArrayMap cannot be cast to class java.lang.Comparable (clojure.lang.PersistentArrayMap is in unnamed module of loader 'app'; java.lang.Comparable is in module java.base of loader 'bootstrap')
+   :at [clojure.lang.Util compare Util.java 153]}]
+ :trace
+ [[clojure.lang.Util compare Util.java 153]
+  [clojure.core$compare invokeStatic core.clj 842]
+  [clojure.core$compare invoke core.clj 833]
+  [clojure.lang.AFunction compare AFunction.java 51]
+  [java.util.TimSort countRunAndMakeAscending TimSort.java 355]
+  [java.util.TimSort sort TimSort.java 220]
+  [java.util.Arrays sort Arrays.java 1234]
+  [clojure.core$sort invokeStatic core.clj 3117]
+  [clojure.core$sort invokeStatic core.clj 3104]
+  [clojure.core$sort invoke core.clj 3104]
+  [polylith.clj.core.deps.brick_deps.core$unique_ids invokeStatic core.clj 49]
+  [polylith.clj.core.deps.brick_deps.core$unique_ids invoke core.clj 48]
+  [polylith.clj.core.deps.brick_deps.core$deps_for_source invokeStatic core.clj 61]
+  [polylith.clj.core.deps.brick_deps.core$deps_for_source invoke core.clj 51]
+  [polylith.clj.core.deps.brick_deps.core$brick_deps invokeStatic core.clj 66]
+  [polylith.clj.core.deps.brick_deps.core$brick_deps invoke core.clj 63]
+  [polylith.clj.core.deps.interface$brick_deps invokeStatic interface.clj 14]
+  [polylith.clj.core.deps.interface$brick_deps invoke interface.clj 13]
+  [polylith.clj.core.workspace.enrich.component$enrich invokeStatic component.clj 13]
+  [polylith.clj.core.workspace.enrich.component$enrich invoke component.clj 11]
+  [polylith.clj.core.workspace.enrich.core$enrich_workspace$fn__34280 invoke core.clj 49]
+  [clojure.core$mapv$fn__8535 invoke core.clj 6980]
+  [clojure.lang.PersistentVector reduce PersistentVector.java 343]
+  [clojure.core$reduce invokeStatic core.clj 6886]
+  [clojure.core$mapv invokeStatic core.clj 6971]
+  [clojure.core$mapv invoke core.clj 6971]
+  [polylith.clj.core.workspace.enrich.core$enrich_workspace invokeStatic core.clj 49]
+  [polylith.clj.core.workspace.enrich.core$enrich_workspace invoke core.clj 37]
+  [polylith.clj.core.workspace.core$workspace invokeStatic core.clj 13]
+  [polylith.clj.core.workspace.core$workspace invoke core.clj 8]
+  [polylith.clj.core.workspace.interface$workspace invokeStatic interface.clj 6]
+  [polylith.clj.core.workspace.interface$workspace invoke interface.clj 5]
+  [polylith.clj.core.command.core$execute invokeStatic core.clj 75]
+  [polylith.clj.core.command.core$execute invoke core.clj 72]
+  [polylith.clj.core.command.interface$execute_command invokeStatic interface.clj 5]
+  [polylith.clj.core.command.interface$execute_command invoke interface.clj 4]
+  [polylith.clj.core.poly_cli.core$_main invokeStatic core.clj 33]
+  [polylith.clj.core.poly_cli.core$_main doInvoke core.clj 7]
+  [clojure.lang.RestFn invoke RestFn.java 397]
+  [clojure.lang.AFn applyToHelper AFn.java 152]
+  [clojure.lang.RestFn applyTo RestFn.java 132]
+  [clojure.lang.Var applyTo Var.java 705]
+  [clojure.core$apply invokeStatic core.clj 667]
+  [clojure.main$main_opt invokeStatic main.clj 514]
+  [clojure.main$main_opt invoke main.clj 510]
+  [clojure.main$main invokeStatic main.clj 664]
+  [clojure.main$main doInvoke main.clj 616]
+  [clojure.lang.RestFn applyTo RestFn.java 137]
+  [clojure.lang.Var applyTo Var.java 705]
+  [clojure.main main main.java 40]]}
+#+end_example

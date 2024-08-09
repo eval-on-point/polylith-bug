@@ -1,1 +1,8 @@
-{:aliases {:dev {}, :test {}}}
+{:aliases {:dev {},
+           :poly {:extra-deps
+                    {polylith/clj-poly
+                       {:deps/root "projects/poly",
+                        :git/url "https://github.com/polyfy/polylith",
+                        :sha "adfcaa2789acad5d29a5d47ffeaeefd19672250a"}},
+                  :main-opts ["-m" "polylith.clj.core.poly-cli.core"]},
+           :test {}}}
