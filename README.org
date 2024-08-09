@@ -1,3 +1,7 @@
+* Background
+See [[https://github.com/polyfy/polylith/issues/504][Requiring multiple non-interface namespaces from another component throws java.lang.ClassCastException · Issue #504 · polyfy/polylith]] for context.
+
+* Bug reproduction
 To reproduce this bug, run:
 
 #+begin_src shell
